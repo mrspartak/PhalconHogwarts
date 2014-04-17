@@ -11,7 +11,11 @@
 .border-radius-0 {border-radius:0px;}
 .no-bullet {padding-left:0px;}
 .no-bullet li {	list-style:none;}
-.word-wrap-50 {word-wrap: break-word; width:50%;}
+.word-wrap-50 {
+	max-width: 110px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 
 .glyphicon, .caret {line-height:inherit;}
 #recaptcha_area, #recaptcha_table, .recaptchatable, #recaptcha_response_field { line-height: normal !important;}
