@@ -1,18 +1,14 @@
 <html>
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf8" />
-  <meta name="viewport" content="width=device-width;height=device-height">
-  {{ stylesheet_link("css/bootstrap.min.css") }}
-  {{ stylesheet_link("css/bootstrap-theme.min.css") }}
-  {{ stylesheet_link("css/select2.css") }}
-  {{ stylesheet_link("css/select2-bootstrap.css") }}
-  {{ stylesheet_link("css/style.css") }}
+  <meta name="viewport" content="width=device-width,height=device-height">
+  {{ assets.outputCss('cssHeader') }}
+  {{ assets.outputJs('jsHeader') }}
 </head>
 <body>
 	<div class="c-wrapper">
     <div class="contain">
-    
-    
+
 			<?php $this->partial("blocks/templates") ?>
       <div class="text-center row ">
         <div class="col-xs-3 text-left" style="padding-left:6px;">
@@ -56,11 +52,6 @@
     </div>
   </div>
 	
-  {{ javascript_include("js/jquery-1.10.1.min.js") }}
-  {{ javascript_include("js/jquery.color-2.1.2.min.js") }}
-  {{ javascript_include("js/bootstrap.min.js") }}
-  {{ javascript_include("js/select2.min.js") }}
-  {{ javascript_include("js/script.js") }}
   <script>
 		$(function(){
 			App.init();	

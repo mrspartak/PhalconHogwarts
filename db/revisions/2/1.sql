@@ -1,0 +1,1 @@
+ALTER TABLE  `work_items` ADD  `sort` SMALLINT UNSIGNED NOT NULL

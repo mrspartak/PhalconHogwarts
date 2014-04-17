@@ -5,11 +5,12 @@
     <div class="col-xs-6">
       <table class="table works">
         {% for work in works %}
-        	<tr class="{{ class[type] }}" data-id="{{ work.id }}">
+        	<tr class="{{ class[type] }} row{{ work.id }}" data-id="{{ work.id }}">
           	<td class="word-wrap-50" data-field="name" contenteditable="true">{{ work.name }}</td>
           	<td data-field="cost" contenteditable="true">{{ work.cost }}</td>
           	<td>
-              <button class="btn btn-default btn-xs btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+              <button class="btn btn-default btn-xs btn-danger" onClick="App.data.removeWork({{ work.id }});"><span class="glyphicon glyphicon-remove"></span></button>
+              <i class="glyphicon glyphicon-move icon-move dragging pull-right"></i>
             </td>
        		</tr>
         {% endfor %}
@@ -20,6 +21,7 @@
 <script>
 	window.onload = function(){
 		App.page.workEditingSubscribe();	
+		App.page.tableSortable();
 	}
 </script>
 

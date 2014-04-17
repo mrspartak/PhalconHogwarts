@@ -143,6 +143,36 @@ class AjaxController extends BaseController {
 					$response[] = 'ok';	
 			break;
 			
+			case 'removeWork':
+				$work = WorkItems::findFirst($this->data['id']);
+				if(!$work)
+					$errors[] = 'Нет записи';
+					
+				if(!$errors) {
+					$result = $work->delete();
+					if($result === false)
+						$errors[] = 'Ошибка удаления';
+				}
+				
+				if($errors)
+					$response['error'] = $errors;
+				else
+					$response[] = 'ok';		
+			break;
+			
+			case 'sortWork':
+				$works = WorkItems::find();
+				$sort = $this->data['v'];
+				foreach($works as $work) {
+					if($work->sort != $sort[$work->id]) {
+						$work->sort = $sort[$work->id];
+						$work->save();
+					}
+				}
+				
+				$response[] = 'ok';		
+			break;
+			
 			default:
 			$this->response->setStatusCode(404, "Not Found")->sendHeaders();
 		}

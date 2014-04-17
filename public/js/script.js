@@ -48,6 +48,23 @@ var App =
 			})	
 		},
 		
+		tableSortable : function(){
+			$('.works').sortable({
+				handle: 'i.icon-move',
+				itemPath: '> tbody',
+				itemSelector: 'tr',
+				placeholder: '<tr class="placeholder"/>',
+				onDrop : function (item, container, _super){
+					v = {}
+					$('.works tr').each(function(index, element) {
+            v[$(element).data('id')	] = index;
+          });
+					App.data.sortWork(v);
+					_super(item)
+				}
+			})	
+		},
+		
 		error : function(text){
 			alert(text)
 		}
@@ -118,6 +135,48 @@ var App =
 			}, 'json').error(function(jqXHR, textStatus, errorThrown){
 				App.page.error('Error getting data. Server responsed with message: "' + errorThrown +'"');
 			})
+		},
+		
+		removeWork : function(id){
+			if(!confirm('Уверены, что хотите удалить дело?')) return false;
+			
+			data = {
+				action	: 'removeWork',
+				data		: {
+					id		: id
+				}
+			}
+			$.post('/ajax/admin', data, function(data){
+				if(data.error)
+					App.page.error(data.error);
+				else {
+					$('.row'+ id)
+						.find('td').wrapInner('<div style="display: block;" />')
+						.animate({paddingTop: 0, paddingBottom: 0}, 500)
+						.parent()
+						.find('td > div').animate({height: 0, opacity: 0}, 700, function() {
+       				$(this).parent().parent().remove();
+    				});
+				}
+			}, 'json').error(function(jqXHR, textStatus, errorThrown){
+				App.page.error('Error getting data. Server responsed with message: "' + errorThrown +'"');
+			})
+		},
+		
+		sortWork : function(v){
+			data = {
+				action	: 'sortWork',
+				data		: {
+					v		: v
+				}
+			}
+			
+			$.post('/ajax/admin', data, function(data){
+				if(data.error)
+					App.page.error(data.error);
+			}, 'json').error(function(jqXHR, textStatus, errorThrown){
+				App.page.error('Error getting data. Server responsed with message: "' + errorThrown +'"');
+			})
 		}
 	}
 }
@@ -134,4 +193,4 @@ function format2(state) {
 	userpic = option.data('userpic')
 	return "<img src='" + userpic + "' style='width:20px;'/> "+ state.text;
 }
-function format3(item) { return item.name + ' <small class="badge">'+ item.cost +'</small>'; }
+function format3(item) { return '<small class="badge">'+ item.cost +'</small> ' + item.name ; }

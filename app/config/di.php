@@ -118,16 +118,14 @@ $di->setShared(
 				if($event->getType() == 'afterQuery') {
 					$profiler->stopProfile();
 					
-					$profiles = $profiler->getProfiles();
-					foreach($profiles as $profile) {
-						$toLog = array(
-							'statement' 	=> $profile->getSQLStatement(),
-							'start_time' 	=> $profile->getInitialTime(),
-							'final_time' 	=> $profile->getFinalTime(),
-							'total_time' 	=> $profile->getTotalElapsedSeconds()
-						);
-						$logger->log( json_encode($toLog) );
-					}
+					$profile = $profiler->getLastProfile();
+					$toLog = array(
+						'statement' 	=> $profile->getSQLStatement(),
+						'start_time' 	=> $profile->getInitialTime(),
+						'final_time' 	=> $profile->getFinalTime(),
+						'total_time' 	=> $profile->getTotalElapsedSeconds()
+					);
+					$logger->log( json_encode($toLog) );
 				}
 			});
 		}

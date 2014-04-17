@@ -30,6 +30,7 @@ class WorkController extends BaseController {
 				$workItem->name = $name->get();
 				$workItem->type = $type;
 				$workItem->cost = $cost;
+				
 				if($workItem->save() === false) {
 					$errors[] = 'Ошибка сохранения';
 				} else {

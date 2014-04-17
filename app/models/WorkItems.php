@@ -14,7 +14,9 @@ class WorkItems extends \Phalcon\Mvc\Model
 	}
 	
 	static function filterWorks() {
-		$works = self::find();
+		$works = self::find(array(
+			'order' => 'sort'
+		));
 		$filteredWorks = array(
 			'1' => array(),
 			'-1' => array()

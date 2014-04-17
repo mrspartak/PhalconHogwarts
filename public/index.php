@@ -1,9 +1,10 @@
 <?php
 
 define('ROOTDIR', realpath(dirname(__FILE__) . '/../'));
-define('SQL_PROFILER', false);
 
 $config = new \Phalcon\Config\Adapter\Ini(ROOTDIR . '/app/config/config.ini');
+
+define('SQL_PROFILER', $config->app->sql_profiler);
 
 $loader = new \Phalcon\Loader();
 $loader->registerDirs(
