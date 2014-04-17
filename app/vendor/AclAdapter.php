@@ -35,7 +35,7 @@ class AclAdapter {
 		)
 	);
 	private $defaultRoutes = array(
-		'guest' => array('index', 'login'),
+		'guest' => array('index', 'index'),
 		'enrollee' => array('index', 'index'),
 		'student' => array('index', 'index')
 	);	

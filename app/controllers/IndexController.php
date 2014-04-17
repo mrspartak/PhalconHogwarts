@@ -38,6 +38,7 @@ class IndexController extends BaseController {
 			$student->fn = $user['first_name'];
 			$student->ln = $user['last_name'];
 			$student->userpic = $user['photo'];
+			$student->admin = 0;
 			
 			if($student->save()) {
 				UserAdapter::logIn($student);

@@ -1,0 +1,1 @@
+ALTER TABLE  `students` CHANGE  `admin`  `admin` TINYINT( 3 ) UNSIGNED NULL
