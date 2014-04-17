@@ -1,0 +1,30 @@
+<h3>Дела за этот месяц</h3>
+
+<table class="table">
+	<Tr>
+  	<th>От</th>
+    <th>Кому</th>
+    <th>Дело</th>
+    <th>Дата</th>
+  </Tr>
+{% for work in works %}
+	{% if work.cost < 0 %}
+  	{% set class = 'warning' %}
+  {% else %}
+  	{% set class = 'success' %}
+  {% endif %} 
+	<tr class="{{ class }}">
+  	<td>
+    	<p>{{ work.st_from_name }}</p>
+      <p><small>{{ work.fc_from_name }}</small></p>
+    </td>
+    <td>{{ work.st_to_name }}</td>
+    <td>
+    	{{ work.name }} <span class="badge">{{ work.cost }}</span>
+    </td>
+    <td>
+    	{{ work.date }}
+    </td>
+  </tr>
+{% endfor %}
+</table>

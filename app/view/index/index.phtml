@@ -1,0 +1,63 @@
+{% set user = userAdapter.getUser() %}
+<div class="row">
+	{% for faculty in faculties %}
+  	{% if user.faculty == faculty.id %}
+      {% set class = 'faculty faculty-active' %}
+    {% elseif user.faculty*-1 == faculty.id %}
+      {% set class = 'faculty faculty-await' %}
+    {% else %}
+    	{% set class = '' %}
+    {% endif %}
+  	<div class="col-xs-3 text-center {{ class }} faculty{{ faculty.id }}" data-id="{{ faculty.id }}">
+    	<h4>{{ faculty.name }}</h4>
+    	{{ image(faculty.logo, 'class' : 'faculty-logo') }}
+      <strong class="bigger clerfix">{{ faculty.getScore() }}</strong>
+      
+      {% if user.faculty == 0 and user.uid > 0 %}
+      	<button class="applyForAdmission" onClick="App.data.applyForAdmission({{ faculty.id }});">поступить</button>
+      {% endif %}
+    </div>
+  {% endfor %}
+</div>
+
+{% if user.faculty > 0 %}
+<hr>
+
+<h3>Оценить работу</h3>
+
+  <form role="form" class="margin-top-10 work-form">
+    <div class="row">
+      <div class="col-xs-4"><label class="label-df">Человек</label></div>
+      <div class="col-xs-8">
+      	{% set students = userAdapter.getStudents() %}
+        <select class="form-control studentSelect hidden">
+        	{% for student in students %}
+          	{% if user.faculty != student.faculty %}
+          		<option id="{{ student.uid }}" value="{{ student.uid }}" data-userpic="{{ student.userpic }}" data-faculty="{{ student.getFaculty().name }}">{{ student.fn }} {{ student.ln }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="row margin-top-10">
+      <div class="col-xs-4"><label class="label-df">Оценка</label></div>
+      <div class="col-xs-8">
+      	<label><input type="radio" class="positive-work" name="mark" value="1" onClick="App.page.workSelect(1);"> Положительная</label>
+        <label><input type="radio" name="mark" value="-1" onClick="App.page.workSelect(-1);"> Отрицательная</label>
+      </div>
+    </div>
+    <div class="row margin-top-10">
+      <div class="col-xs-4"><label class="label-df">Дело</label></div>
+      <div class="col-xs-8">
+        <input type="hidden" style="width:100%;" class="workSelect">
+        <script>
+        	var works = '{{ filteredWorks|json_encode }}';
+					window.onload = function(){
+						$('.positive-work').click();
+					}
+        </script>
+      </div>
+    </div>
+    <input type="button" class="btn btn-default border-radius-0 margin-top-10" value="Добавить" onClick="App.data.markWork();">
+  </form>
+{% endif %}

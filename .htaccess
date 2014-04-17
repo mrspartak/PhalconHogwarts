@@ -1,0 +1,8 @@
+#dnwr_host 192.168.0.113
+#dnwr_ip   192.168.0.113
+
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule  ^$ public/    [L]
+    RewriteRule  (.*) public/$1 [L]
+</IfModule>

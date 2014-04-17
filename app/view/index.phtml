@@ -1,0 +1,70 @@
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf8" />
+  <meta name="viewport" content="width=device-width;height=device-height">
+  {{ stylesheet_link("css/bootstrap.min.css") }}
+  {{ stylesheet_link("css/bootstrap-theme.min.css") }}
+  {{ stylesheet_link("css/select2.css") }}
+  {{ stylesheet_link("css/select2-bootstrap.css") }}
+  {{ stylesheet_link("css/style.css") }}
+</head>
+<body>
+	<div class="c-wrapper">
+    <div class="contain">
+    
+    
+			<?php $this->partial("blocks/templates") ?>
+      <div class="text-center row ">
+        <div class="col-xs-3 text-left" style="padding-left:6px;">
+          <ul class="no-bullet">
+            <li>{{ link_to('index/login', '<span class="glyphicon glyphicon-signal"></span> Статистика', 
+              'class': 'btn btn-sm btn-link border-radius-0 no-decoration', 
+              'title': 'Статистика',
+              'disabled': 'true') }}
+            </li>
+          {% if aclAdapter.check(userAdapter, 'log', 'index') %}
+            <li>{{ link_to('log/index', '<span class="glyphicon glyphicon-envelope"></span> Уведомления', 
+              'class': 'btn btn-sm btn-link border-radius-0 no-decoration', 
+              'title': 'Уведомления') }}
+            </li>
+          {% endif %}
+          {% if aclAdapter.check(userAdapter, 'work', 'index') %}
+            <li>{{ link_to('work/index', '<span class="glyphicon glyphicon-list"></span> Дела', 
+              'class': 'btn btn-sm btn-link border-radius-0 no-decoration', 
+              'title': 'Дела') }}
+            </li>
+          {% endif %}
+          </ul>
+          
+        </div>
+        <div class="col-xs-6">
+          {{ link_to('', '<img src="/img/Hogwarts_Logo.png" class="logo center">') }}
+        </div>
+        <div class="col-xs-3 text-right">
+          {% if userAdapter.loggedIn() === false %}
+            <script src="//ulogin.ru/js/ulogin.js"></script>
+            <div id="uLogin" data-ulogin="display=buttons;fields=first_name,last_name,photo;redirect_uri={{ url('index/oauth')|url_encode }};receiver={{ url('')~'xd_custom.html'|url_encode }}">
+              <button type="button" class="btn btn-default border-radius-0" title="вход" data-uloginbutton = "vkontakte"><span class="glyphicon glyphicon-log-in"></span></button>
+            </div>
+          {% else %}
+            {{ link_to('index/logout', '<button type="button" class="btn btn-default border-radius-0" title="выход"><span class="glyphicon glyphicon-log-out"></span></button>') }}
+          {% endif %}
+        </div>
+      </div>
+    
+      {{ content() }}
+    </div>
+  </div>
+	
+  {{ javascript_include("js/jquery-1.10.1.min.js") }}
+  {{ javascript_include("js/jquery.color-2.1.2.min.js") }}
+  {{ javascript_include("js/bootstrap.min.js") }}
+  {{ javascript_include("js/select2.min.js") }}
+  {{ javascript_include("js/script.js") }}
+  <script>
+		$(function(){
+			App.init();	
+		})
+	</script>
+</body>
+</html>
