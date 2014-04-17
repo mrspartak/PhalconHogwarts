@@ -69,6 +69,10 @@ class IndexController extends BaseController {
 			$workDone->save();
 		}
 	}
+	
+	public function errorAction() {
+		
+	}
 }
 
 

@@ -24,7 +24,7 @@ try {
 	echo $application->handle()->getContent();
 } catch (Exception $e) {
 	if ($application->config->app->debug == 0) {
-		$application->response->redirect("error")->sendHeaders();
+		$application->response->redirect("index/error")->sendHeaders();
 	} else {
 		$s = get_class($e) . ": " . $e->getMessage() . "<br>" . " File=" . $e->getFile() . "<br>" . " Line="
 		. $e->getLine() . "<br>" . $e->getTraceAsString();
