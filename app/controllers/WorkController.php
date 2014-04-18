@@ -32,7 +32,12 @@ class WorkController extends BaseController {
 				$workItem->cost = $cost;
 				
 				if($workItem->save() === false) {
-					$errors[] = 'Ошибка сохранения';
+					if($this->config->app->debug)
+						foreach ($workItem->getMessages() as $message) {
+        			$errors[] .= $message;
+    				}
+					else
+						$errors[] = 'Ошибка сохранения';
 				} else {
 					$this->view->disable();
 					$this->response->redirect('work/index')->sendHeaders();
