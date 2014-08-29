@@ -5,7 +5,7 @@ $configArray = parse_ini_file('../../app/config/config.ini', true);
  * Your database authentication information goes here
  * @see http://dbv.vizuina.com/documentation/
  */
-define('DB_HOST', $configArray['database']['localhost']);
+define('DB_HOST', $configArray['database']['host']);
 //define('DB_PORT', 80);
 define('DB_USERNAME', $configArray['database']['username']);
 define('DB_PASSWORD', $configArray['database']['password']);
